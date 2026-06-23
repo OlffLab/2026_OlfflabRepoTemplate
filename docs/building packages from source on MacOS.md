@@ -28,7 +28,7 @@ When you run for example:
 install.packages("ggplot2")
 ```
 
-R first looks for a precompiled binary package.
+R first looks for a precompiled binary package in te online CRAN package repository.
 
 If a binary is available, it is downloaded and installed directly.
 
