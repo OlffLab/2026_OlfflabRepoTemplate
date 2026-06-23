@@ -8,21 +8,69 @@
 # Functions defined here are for example the function read_gsdb() to read a Google Sheets database and the function gsheets_auth() to authenticate Google Sheets access.
 #####-------------------------------------------------------------------------
 
-#####----------------------------01 Clear and Restore environment ---------------------------------
-rm(list=ls()) # clear working memory
-options(repos = c(CRAN = "https://cran.r-project.org")) # set CRAN mirror to avoid issues with package installation
-if (!requireNamespace("renv", quietly = TRUE)) {install.packages("renv")}
-if (!requireNamespace("pkgbuild", quietly = TRUE)) {install.packages("pkgbuild")}
-# for windows:
-pkgbuild::has_rtools(debug = TRUE) # check if Rtools is installed and available for your R version
-# if not install RTools from  https://cran.r-project.org/bin/windows/Rtools/.
-# for MacOS:
-# check see https://github.com/OlffLab/2026_OlfflabRepoTemplate/blob/main/docs/building%20packages%20on%20MacOS.pdf
-library(renv) # load renv library
-renv::restore() # restore the packages in the renv.lock file
-Sys.setenv(TZ="UTC") # set timezone to UTC to avoid issues with date handling across timezones
+# ============================================================
+# Project setup
+# ============================================================
 
-#####----------------------------02 Load libraries ---------------------------------
+# Clear the current R workspace
+rm(list = ls())
+
+# Set CRAN mirror explicitly to avoid package installation issues
+options(repos = c(CRAN = "https://cran.r-project.org"))
+
+# Set timezone to UTC to avoid date/time inconsistencies
+Sys.setenv(TZ = "UTC")
+
+
+# ============================================================
+# Install required setup packages if missing
+# ============================================================
+
+if (!requireNamespace("renv", quietly = TRUE)) {
+  install.packages("renv")
+}
+
+if (!requireNamespace("pkgbuild", quietly = TRUE)) {
+  install.packages("pkgbuild")
+}
+
+
+# ============================================================
+# Check system build tools
+# ============================================================
+
+# Windows:
+# R packages installed from source may require Rtools.
+# If this check fails, install the correct Rtools version from:
+# https://cran.r-project.org/bin/windows/Rtools/
+
+if (.Platform$OS.type == "windows") {
+  pkgbuild::has_rtools(debug = TRUE)
+} else {
+  message("Not running on Windows; Rtools is not applicable.")
+}
+
+# macOS:
+# Rtools is not used on macOS.
+# Source package compilation uses Xcode Command Line Tools instead.
+# See:
+# https://github.com/OlffLab/2026_OlfflabRepoTemplate/blob/main/docs/building%20packages%20on%20MacOS.pdf
+
+
+# ============================================================
+# Restore project package environment
+# ============================================================
+
+# Load renv
+library(renv)
+
+# Restore packages recorded in renv.lock
+renv::restore()
+
+# ============================================================
+# Load required libraries
+# ============================================================
+
 suppressPackageStartupMessages({
   library(googlesheets4)
   library(purrr)
@@ -31,7 +79,9 @@ suppressPackageStartupMessages({
   library(httpuv)
 })
 
-#####---------------------------03 Define user functions -------------------------------
+# ============================================================
+# Define user functions
+# ============================================================
 
 ##### 1) Function read_gsdb to read specific sheets from a gsheets database or the whole database
 # 
@@ -99,7 +149,7 @@ read_gsdb <- function(database, sheets = NULL, separate = FALSE, verbose = TRUE)
 }
 
 
-##### --- Google Sheets auth (googlesheets4) ----------------------------
+##### --- Function to authenticate with Google Sheets (googlesheets4) ----------------------------
 suppressPackageStartupMessages(library(googlesheets4))
 
 # Helper you can call from any script after sourcing 00-setup.R:
