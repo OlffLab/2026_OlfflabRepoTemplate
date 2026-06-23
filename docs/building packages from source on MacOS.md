@@ -18,10 +18,10 @@ On macOS, these tools are provided by Apple through the Xcode Command Line Tools
 
 ## How package installation works on macOS
 
-When you run:
+When you run for example:
 
 ```r
-install.packages("xml2")
+install.packages("ggplot2")
 ```
 
 R first looks for a precompiled binary package.
