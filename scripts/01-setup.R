@@ -45,8 +45,9 @@ if (!requireNamespace("pkgbuild", quietly = TRUE)) {
 # https://cran.r-project.org/bin/windows/Rtools/
 
 if (.Platform$OS.type == "windows") {
+  message("Checking Rtools RTools installation status...")
   pkgbuild::has_rtools(debug = TRUE)
-} else {
+  } else {
   message("Not running on Windows; Rtools is not applicable.")
 }
 
@@ -64,7 +65,8 @@ if (.Platform$OS.type == "windows") {
 # Load renv
 library(renv)
 
-# Restore packages recorded in renv.lock
+# Restore packages recorded in renv.lock if needed. This ensures that the project uses the same package versions as specified in the lockfile.
+message("Checking and restoring project package environment using renv...")
 renv::restore()
 
 # ============================================================
