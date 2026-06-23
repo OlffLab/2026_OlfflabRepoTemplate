@@ -1,19 +1,47 @@
-# Building packages on a Windows machine
+# Building Packages on a Windows Machine
 
-## Why use renv?
-We use the renv library to "freeze" the versions of the packages used in a project. This ensures that for example 5 years from know you can still run the scripts of your project, even through R has changed substantially. And it ensures that collaborators work exactly with the same software environment while collaborating on scripts. 
-Which packages in which version a project is using, is stored in the file renv.lock in the root folder of your R project. 
+## Why use `renv`?
 
-This use of the renv library in R, as for example when restoring your R environment from the .lock file 
+We use the `renv` package to create a reproducible software environment for an R project. `renv` records the exact versions of all R packages used in the project, ensuring that analyses can be reproduced in the future, even if R and its packages have changed substantially.
+
+Using `renv` also ensures that all collaborators work with exactly the same package versions, reducing the risk of scripts behaving differently on different computers.
+
+The package versions used by a project are stored in the `renv.lock` file located in the root folder of the project.
+
+For example, a collaborator can recreate the project's package environment using:
+
 ```r
 renv::restore()
 ```
-requires that your computer can build packages into a binary version from their online source code in a repository.  
 
-## renv requires RTools
-On Windows, R packages that contain C, C++, or Fortran code require a separate toolchain called Rtools. Rtools bundles compilers, build tools, libraries, and utilities needed to compile packages from source. This is a separate program that you installin addition to installing R and your IDE as Positron. 
-Install the version of RTools that fits with your R installation. 
-for R 4.6 you need RTools 4.5 (the latest version)  
+During this process, `renv` may need to install packages from source code and compile them locally. Therefore, your computer must have the necessary build tools installed.
 
-Install it using the installer from this location https://cran.r-project.org/bin/windows/Rtools/  
-On macOS this works differently, see the next .md file
+## `renv` Requires Rtools on Windows
+
+On Windows, many R packages contain C, C++, or Fortran code. To install these packages from source, R requires a separate software toolchain called **Rtools**.
+
+Rtools provides the compilers, libraries, and build tools needed to compile R packages. It must be installed in addition to R itself and your preferred IDE (e.g. Positron or RStudio).
+
+Install the version of Rtools that is compatible with your version of R. As a rule of thumb, use the most recent Rtools version recommended for your R release. For example:
+
+| R version | Recommended Rtools version |
+| --------- | -------------------------- |
+| R 4.6.x   | Rtools 4.5                 |
+| R 4.5.x   | Rtools 4.5                 |
+| R 4.4.x   | Rtools 4.4                 |
+
+Rtools can be downloaded from:
+
+https://cran.r-project.org/bin/windows/Rtools/
+
+After installation, you can verify that Rtools is available by running:
+
+```r
+pkgbuild::has_rtools(debug = TRUE)
+```
+
+## macOS
+
+On macOS, Rtools is not used. Package compilation relies on Apple's Xcode Command Line Tools instead. See the accompanying document:
+
+**Building packages on a MacOS machine.md**
