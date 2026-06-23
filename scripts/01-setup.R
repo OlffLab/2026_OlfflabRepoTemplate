@@ -1,4 +1,14 @@
-#----------------------------01 Clear and Restore environment ---------------------------------
+##### ----------------------------description---------------------------------
+# # 01-setup.R - Han Olff - June 2026
+# This script is the first script to run in the project. 
+# this is typically done by sourcing the script in the R console or in the RStudio IDE by putting at the start of every script: source("scripts/01-setup.R")
+# Functionally in this script is that it clears the environment,
+#  restores the packages in the renv.lock file, sets the timezone to UTC, loads the required libraries and defines user functions.
+# user functions defined here can be used in any other script in the project after sourcing this script.
+# Functions defined here are for example the function read_gsdb() to read a Google Sheets database and the function gsheets_auth() to authenticate Google Sheets access.
+#####-------------------------------------------------------------------------
+
+#####----------------------------01 Clear and Restore environment ---------------------------------
 rm(list=ls()) # clear working memory
 options(repos = c(CRAN = "https://cran.r-project.org")) # set CRAN mirror to avoid issues with package installation
 if (!requireNamespace("renv", quietly = TRUE)) {install.packages("renv")}
@@ -12,7 +22,7 @@ library(renv) # load renv library
 renv::restore() # restore the packages in the renv.lock file
 Sys.setenv(TZ="UTC") # set timezone to UTC to avoid issues with date handling across timezones
 
-#----------------------------02 Load libraries ---------------------------------
+#####----------------------------02 Load libraries ---------------------------------
 suppressPackageStartupMessages({
   library(googlesheets4)
   library(purrr)
@@ -21,9 +31,9 @@ suppressPackageStartupMessages({
   library(httpuv)
 })
 
-#---------------------------03 Define user functions -------------------------------
+#####---------------------------03 Define user functions -------------------------------
 
-#### 1) Function read_gsdb to read specific sheets from a gsheets database or the whole database
+##### 1) Function read_gsdb to read specific sheets from a gsheets database or the whole database
 # 
 # Usage examples : 
 #
@@ -89,7 +99,7 @@ read_gsdb <- function(database, sheets = NULL, separate = FALSE, verbose = TRUE)
 }
 
 
-## --- Google Sheets auth (googlesheets4) ----------------------------
+##### --- Google Sheets auth (googlesheets4) ----------------------------
 suppressPackageStartupMessages(library(googlesheets4))
 
 # Helper you can call from any script after sourcing 00-setup.R:
