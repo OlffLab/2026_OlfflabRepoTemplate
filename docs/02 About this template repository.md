@@ -1,0 +1,6 @@
+## About this 2026_OlfflabRepoTemplate  
+
+# What this is
+This is github repository to get started with a new R project. It can be used as a template when starting a new repository.  
+That means that the new repository gets the full contents of this repository (all folders and files)
+ 
