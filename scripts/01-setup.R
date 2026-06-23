@@ -82,7 +82,7 @@ suppressPackageStartupMessages({
 })
 
 # ============================================================
-# Define user functions
+# Define helper functions
 # ============================================================
 
 ##### 1) Function read_gsdb to read specific sheets from a gsheets database or the whole database
@@ -154,7 +154,6 @@ read_gsdb <- function(database, sheets = NULL, separate = FALSE, verbose = TRUE)
 ##### --- Function to authenticate with Google Sheets (googlesheets4) ----------------------------
 suppressPackageStartupMessages(library(googlesheets4))
 
-# Helper you can call from any script after sourcing 00-setup.R:
 gsheets_auth <- function(
     mode = c("auto", "public", "user", "service"),
     email = Sys.getenv("GS_EMAIL", ""),                     # for user OAuth
