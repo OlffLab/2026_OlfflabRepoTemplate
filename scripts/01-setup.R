@@ -1,5 +1,6 @@
 #----------------------------01 Clear and Restore environment ---------------------------------
 rm(list=ls()) # clear working memory
+options(repos = c(CRAN = "https://cran.r-project.org"))
 if (!requireNamespace("renv", quietly = TRUE)) {install.packages("renv")}
 library(renv) # load renv library
 renv::restore() # restore the packages in the renv.lock file
