@@ -1,5 +1,4 @@
 #----------------------------01 Clear and Restore environment ---------------------------------
-
 rm(list=ls()) # clear working memory
 options(repos = c(CRAN = "https://cran.r-project.org")) # set CRAN mirror to avoid issues with package installation
 if (!requireNamespace("renv", quietly = TRUE)) {install.packages("renv")}
