@@ -1,7 +1,14 @@
 #----------------------------01 Clear and Restore environment ---------------------------------
+
 rm(list=ls()) # clear working memory
 options(repos = c(CRAN = "https://cran.r-project.org")) # set CRAN mirror to avoid issues with package installation
 if (!requireNamespace("renv", quietly = TRUE)) {install.packages("renv")}
+if (!requireNamespace("pkgbuild", quietly = TRUE)) {install.packages("pkgbuild")}
+# for windows:
+pkgbuild::has_rtools(debug = TRUE) # check if Rtools is installed and available for your R version
+# if not install RTools from  https://cran.r-project.org/bin/windows/Rtools/.
+# for MacOS:
+# check see https://github.com/OlffLab/2026_OlfflabRepoTemplate/blob/main/docs/building%20packages%20on%20MacOS.pdf
 library(renv) # load renv library
 renv::restore() # restore the packages in the renv.lock file
 Sys.setenv(TZ="UTC") # set timezone to UTC to avoid issues with date handling across timezones
