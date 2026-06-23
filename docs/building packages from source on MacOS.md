@@ -1,6 +1,6 @@
 # Building packages from source on macOS
 
-The use of the renv library, as renv::restore() requires that your computer can build packages into a binary version from their online source code in a repository.  
+The use of the renv library in R, as renv::restore() requires that your computer can build packages into a binary version from their online source code in a repository.  
 
 On Windows, R packages that contain C, C++, or Fortran code require a separate toolchain called Rtools. Rtools bundles compilers, build tools, libraries, and utilities needed to compile packages from source.
 
