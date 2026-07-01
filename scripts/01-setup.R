@@ -62,8 +62,22 @@ if (.Platform$OS.type == "windows") {
 # Restore project package environment
 # ============================================================
 
-# Load renv
-library(renv)
+packages <- c(
+  "renv",
+  "pkgbuild",
+  "googlesheets4",
+  "purrr",
+  "tidyverse",
+  "patchwork",
+  "httpuv"
+)
+
+missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+
+if (length(missing)) {
+  install.packages(missing)
+}
+
 
 # Restore packages recorded in renv.lock if needed. This ensures that the project uses the same package versions as specified in the lockfile.
 message("Checking and restoring project package environment using renv...")
