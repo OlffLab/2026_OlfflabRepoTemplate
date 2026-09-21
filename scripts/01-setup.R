@@ -152,6 +152,7 @@ read_gsdb <- function(database, sheets = NULL, separate = FALSE, verbose = TRUE)
       cat(sprintf("\r[%d/%d] %s ...", i, n, sh))
       flush.console()
     }
+    # read sheet and handle NA as empty cells or "NA" string
     res[[i]] <- googlesheets4::read_sheet(database, sheet = sh, na = c("", "NA"))
     if (verbose) utils::setTxtProgressBar(pb, i)
   }
